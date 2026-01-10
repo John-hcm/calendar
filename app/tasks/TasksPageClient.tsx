@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ymd } from '@/lib/date';
 import { useRequireAuth } from '@/lib/useRequireAuth';
-import { TaskItem, fetchTasksByRange, updateTask } from '@/lib/db';
+import { TaskItem, deleteTask, fetchTasksByRange, updateTask } from '@/lib/db';
 
 export default function TasksPageClient() {
   const router = useRouter();
@@ -79,6 +79,30 @@ export default function TasksPageClient() {
     }
   };
 
+  const remove = async (t: TaskItem) => {
+    if (!userId) return;
+    if (!confirm('삭제할까요?')) return;
+    setErrMsg('');
+    // optimistic
+    setTasks((prev) => prev.filter((x) => x.id !== t.id));
+    try {
+      await deleteTask(userId, t.id);
+    } catch (e: any) {
+      // rollback
+      setTasks((prev) => {
+        const next = [...prev, t];
+        next.sort((a, b) => {
+          const ad = a.due_date ?? '9999-12-31';
+          const bd = b.due_date ?? '9999-12-31';
+          if (ad !== bd) return ad.localeCompare(bd);
+          return (a.created_at ?? '').localeCompare(b.created_at ?? '');
+        });
+        return next;
+      });
+      setErrMsg(e?.message ?? '삭제 실패');
+    }
+  };
+
   if (authLoading) return <div className="min-h-screen bg-black/90" />;
 
   return (
@@ -136,12 +160,20 @@ export default function TasksPageClient() {
                           </div>
                           {t.notes && <div className="mt-1 text-sm text-black/70 truncate">{t.notes}</div>}
                         </div>
-                        <Link
-                          href={`/tasks/edit?id=${encodeURIComponent(t.id)}`}
-                          className="rounded-xl bg-black/5 px-3 py-2 text-sm font-semibold"
-                        >
-                          수정
-                        </Link>
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/tasks/edit?id=${encodeURIComponent(t.id)}`}
+                            className="rounded-xl bg-black/5 px-3 py-2 text-sm font-semibold"
+                          >
+                            수정
+                          </Link>
+                          <button
+                            onClick={() => remove(t)}
+                            className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700"
+                          >
+                            삭제
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
