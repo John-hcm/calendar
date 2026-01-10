@@ -42,6 +42,22 @@ export type CalendarEvent = {
   deleted_at: string | null;
 };
 
+// ---------------------------
+// Tasks
+// ---------------------------
+
+export type TaskItem = {
+  id: string;
+  user_id: string;
+  title: string;
+  notes: string | null;
+  due_date: string | null; // YYYY-MM-DD
+  is_done: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+};
+
 export async function fetchCategories(userId: string) {
   const { data, error } = await supabase
     .from('entry_categories')
@@ -319,4 +335,99 @@ export async function createEvent(input: {
 
   if (error) throw error;
   return data as CalendarEvent;
+}
+
+// ---------------------------
+// Tasks
+// ---------------------------
+
+export async function fetchTasksByRange(userId: string, startYmd: string, endYmd: string) {
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('*')
+    .eq('user_id', userId)
+    .is('deleted_at', null)
+    .gte('due_date', startYmd)
+    .lte('due_date', endYmd)
+    .order('is_done', { ascending: true })
+    .order('due_date', { ascending: true })
+    .order('created_at', { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []) as TaskItem[];
+}
+
+export async function fetchTasks(userId: string) {
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('*')
+    .eq('user_id', userId)
+    .is('deleted_at', null)
+    .order('is_done', { ascending: true })
+    .order('due_date', { ascending: true })
+    .order('created_at', { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []) as TaskItem[];
+}
+
+export async function createTask(input: {
+  user_id: string;
+  title: string;
+  notes?: string | null;
+  due_date?: string | null;
+}) {
+  const { data, error } = await supabase
+    .from('tasks')
+    .insert({
+      user_id: input.user_id,
+      title: input.title,
+      notes: input.notes ?? null,
+      due_date: input.due_date ?? null,
+      is_done: false,
+    })
+    .select('*')
+    .single();
+
+  if (error) throw error;
+  return data as TaskItem;
+}
+
+export async function updateTask(input: {
+  user_id: string;
+  id: string;
+  title?: string;
+  notes?: string | null;
+  due_date?: string | null;
+  is_done?: boolean;
+}) {
+  const patch: Record<string, any> = {};
+  if (typeof input.title === 'string') patch.title = input.title;
+  if (input.notes !== undefined) patch.notes = input.notes;
+  if (input.due_date !== undefined) patch.due_date = input.due_date;
+  if (typeof input.is_done === 'boolean') patch.is_done = input.is_done;
+
+  const { data, error } = await supabase
+    .from('tasks')
+    .update(patch)
+    .eq('user_id', input.user_id)
+    .eq('id', input.id)
+    .select('*')
+    .single();
+
+  if (error) throw error;
+  return data as TaskItem;
+}
+
+export async function deleteTask(userId: string, taskId: string) {
+  const { data, error } = await supabase
+    .from('tasks')
+    .update({ deleted_at: new Date().toISOString() })
+    .eq('user_id', userId)
+    .eq('id', taskId)
+    .select('id')
+    .single();
+
+  if (error) throw error;
+  return data as { id: string };
 }
