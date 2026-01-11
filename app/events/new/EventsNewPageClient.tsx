@@ -78,10 +78,10 @@ export default function NewEventPage() {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href={`/day?date=${encodeURIComponent(solarDate)}`} className="text-sm font-bold underline">
@@ -91,7 +91,7 @@ export default function NewEventPage() {
           <div className="w-[74px]" />
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
           <div className="text-sm font-bold">날짜</div>
           <input
             type="date"
@@ -99,9 +99,9 @@ export default function NewEventPage() {
             onChange={(e) => setSolarDate(e.target.value)}
             className="mt-1 w-full rounded-xl border px-3 py-2"
           />
-          <div className="mt-2 text-sm text-black/70">음력(참고): {lunarLabelFromSolarYmd(solarDate)}</div>
+          <div className="mt-2 text-sm text-[#e8eaed]/70">음력(참고): {lunarLabelFromSolarYmd(solarDate)}</div>
 
-          {errMsg && <div className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+          {errMsg && <div className="mt-3 rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
 
           <div className="mt-4">
             <label className="text-sm font-bold">카테고리(선택)</label>
@@ -170,7 +170,7 @@ export default function NewEventPage() {
           <button
             onClick={save}
             disabled={!canSave}
-            className="mt-5 w-full rounded-2xl bg-black px-4 py-3 text-sm font-extrabold text-white disabled:opacity-40"
+            className="mt-5 w-full rounded-2xl bg-black px-4 py-3 text-sm font-extrabold text-[#e8eaed] disabled:opacity-40"
           >
             {saving ? '저장 중...' : '저장'}
           </button>

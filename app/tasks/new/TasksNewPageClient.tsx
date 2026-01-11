@@ -44,10 +44,10 @@ export default function TasksNewPageClient() {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href="/tasks" className="text-sm font-bold underline">
@@ -57,14 +57,14 @@ export default function TasksNewPageClient() {
           <button
             onClick={save}
             disabled={saving}
-            className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black disabled:opacity-60"
+            className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed] disabled:opacity-60"
           >
             저장
           </button>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
-          {errMsg && <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
+          {errMsg && <div className="rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
 
           <div className="mt-3 grid gap-3">
             <label className="grid gap-1">

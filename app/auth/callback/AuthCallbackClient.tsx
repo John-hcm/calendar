@@ -46,11 +46,11 @@ export default function AuthCallbackPage() {
   }, [router, next]);
 
   return (
-    <div className="min-h-screen bg-black/90 px-4 py-10 text-white">
-      <div className="mx-auto w-full max-w-[520px] rounded-3xl bg-white p-6 text-black">
+    <div className="min-h-screen bg-[#202124] px-4 py-10 text-[#e8eaed]">
+      <div className="mx-auto w-full max-w-[520px] rounded-3xl bg-[#202124] border border-[#3c4043] p-6 text-[#e8eaed]">
         <div className="text-xl font-extrabold">이메일 인증</div>
-        <div className="mt-3 rounded-xl bg-black/5 p-3 text-sm">{msg}</div>
-        <div className="mt-4 text-sm text-black/60">이동 경로: {next}</div>
+        <div className="mt-3 rounded-xl bg-white/5 p-3 text-sm">{msg}</div>
+        <div className="mt-4 text-sm text-[#9aa0a6]">이동 경로: {next}</div>
       </div>
     </div>
   );

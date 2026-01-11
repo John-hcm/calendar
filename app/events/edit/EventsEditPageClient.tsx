@@ -115,12 +115,12 @@ export default function EditEventPage() {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   const backDate = event?.solar_date ?? solarDate;
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href={`/day?date=${encodeURIComponent(backDate)}`} className="text-sm font-bold underline">
@@ -130,14 +130,14 @@ export default function EditEventPage() {
           <button
             onClick={del}
             disabled={!userId || !eventId || deleting}
-            className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40"
+            className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-[#e8eaed] disabled:opacity-40"
           >
             {deleting ? '삭제 중...' : '삭제'}
           </button>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
-          {errMsg && <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
+          {errMsg && <div className="rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
 
           <div className="mt-4">
             <label className="text-sm font-bold">날짜</label>
@@ -147,7 +147,7 @@ export default function EditEventPage() {
               onChange={(e) => setSolarDate(e.target.value)}
               className="mt-1 w-full rounded-xl border px-3 py-2"
             />
-            <div className="mt-2 text-sm text-black/70">음력(참고): {lunarLabelFromSolarYmd(solarDate)}</div>
+            <div className="mt-2 text-sm text-[#e8eaed]/70">음력(참고): {lunarLabelFromSolarYmd(solarDate)}</div>
           </div>
 
           <div className="mt-4">
@@ -217,7 +217,7 @@ export default function EditEventPage() {
           <button
             onClick={save}
             disabled={!canSave}
-            className="mt-5 w-full rounded-2xl bg-black px-4 py-3 text-sm font-extrabold text-white disabled:opacity-40"
+            className="mt-5 w-full rounded-2xl bg-black px-4 py-3 text-sm font-extrabold text-[#e8eaed] disabled:opacity-40"
           >
             {saving ? '저장 중...' : '저장'}
           </button>

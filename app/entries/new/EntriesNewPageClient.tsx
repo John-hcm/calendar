@@ -95,10 +95,10 @@ const save = async () => {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href={`/day?date=${encodeURIComponent(date)}`} className="text-sm font-bold underline">
@@ -108,11 +108,11 @@ const save = async () => {
           <div className="w-[74px]" />
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
           <div className="text-sm font-bold">날짜</div>
-          <div className="mt-1 text-sm text-black/70">{date}</div>
+          <div className="mt-1 text-sm text-[#e8eaed]/70">{date}</div>
 
-          {errMsg && <div className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+          {errMsg && <div className="mt-3 rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
 
           <div className="mt-4">
             <div className="flex items-center justify-between">
@@ -171,13 +171,13 @@ const save = async () => {
                     type="button"
                     onClick={addCategory}
                     disabled={!canCreateCategory}
-                    className="rounded-xl bg-black px-3 py-2 text-sm font-extrabold text-white disabled:opacity-40"
+                    className="rounded-xl bg-black px-3 py-2 text-sm font-extrabold text-[#e8eaed] disabled:opacity-40"
                   >
                     추가
                   </button>
                 </div>
 
-                <div className="mt-2 text-xs text-black/60">
+                <div className="mt-2 text-xs text-[#9aa0a6]">
                   추가 후 바로 선택되고, 저장 버튼이 활성화됩니다.
                 </div>
               </div>
@@ -207,7 +207,7 @@ const save = async () => {
           <button
             onClick={save}
             disabled={!canSave}
-            className="mt-5 w-full rounded-2xl bg-black px-4 py-3 text-sm font-extrabold text-white disabled:opacity-40"
+            className="mt-5 w-full rounded-2xl bg-black px-4 py-3 text-sm font-extrabold text-[#e8eaed] disabled:opacity-40"
           >
             {saving ? '저장 중...' : '저장'}
           </button>

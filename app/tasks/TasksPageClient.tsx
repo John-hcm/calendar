@@ -103,35 +103,35 @@ export default function TasksPageClient() {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href="/calendar" className="text-sm font-bold underline">
             ◀ 캘린더
           </Link>
           <div className="text-lg font-extrabold">테스크</div>
-          <button onClick={goNew} className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black">
+          <button onClick={goNew} className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed]">
             + 새 테스크
           </button>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
           <div className="text-sm font-bold">기간</div>
-          <div className="mt-1 text-sm text-black/70">
+          <div className="mt-1 text-sm text-[#e8eaed]/70">
             {start} ~ {end}
           </div>
 
-          {errMsg && <div className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+          {errMsg && <div className="mt-3 rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
           {!errMsg && loading && (
-            <div className="mt-3 rounded-xl bg-black/5 px-3 py-2 text-sm text-black/60">불러오는 중...</div>
+            <div className="mt-3 rounded-xl bg-white/5 px-3 py-2 text-sm text-[#9aa0a6]">불러오는 중...</div>
           )}
 
           <div className="mt-4 space-y-5">
             {tasks.length === 0 ? (
-              <div className="text-sm text-black/60">없음</div>
+              <div className="text-sm text-[#9aa0a6]">없음</div>
             ) : (
               grouped.map((g) => (
                 <div key={g.key}>
@@ -143,7 +143,7 @@ export default function TasksPageClient() {
                           onClick={() => toggleDone(t)}
                           className={[
                             'mt-0.5 h-5 w-5 rounded-md border flex items-center justify-center',
-                            t.is_done ? 'bg-black text-white' : 'bg-white',
+                            t.is_done ? 'bg-black text-[#e8eaed]' : 'bg-[#202124] border border-[#3c4043]',
                           ].join(' ')}
                           aria-label="toggle-done"
                         >
@@ -153,23 +153,23 @@ export default function TasksPageClient() {
                           <div
                             className={[
                               'font-bold',
-                              t.is_done ? 'line-through text-black/50' : 'text-black',
+                              t.is_done ? 'line-through text-[#e8eaed]/50' : 'text-[#e8eaed]',
                             ].join(' ')}
                           >
                             {t.title}
                           </div>
-                          {t.notes && <div className="mt-1 text-sm text-black/70 truncate">{t.notes}</div>}
+                          {t.notes && <div className="mt-1 text-sm text-[#e8eaed]/70 truncate">{t.notes}</div>}
                         </div>
                         <div className="flex items-center gap-2">
                           <Link
                             href={`/tasks/edit?id=${encodeURIComponent(t.id)}`}
-                            className="rounded-xl bg-black/5 px-3 py-2 text-sm font-semibold"
+                            className="rounded-xl bg-white/5 px-3 py-2 text-sm font-semibold"
                           >
                             수정
                           </Link>
                           <button
                             onClick={() => remove(t)}
-                            className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700"
+                            className="rounded-xl bg-[#3c4043] px-3 py-2 text-sm font-semibold text-[#f28b82]"
                           >
                             삭제
                           </button>

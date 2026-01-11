@@ -67,7 +67,7 @@ export default function DayPageClient() {
     };
   }, [userId, dateStr]);
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   const openNewEntry = () => router.push(`/entries/new?date=${encodeURIComponent(dateStr)}`);
   const openNewEvent = () => router.push(`/events/new?date=${encodeURIComponent(dateStr)}`);
@@ -97,7 +97,7 @@ export default function DayPageClient() {
   };
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href="/calendar" className="text-sm font-bold underline">
@@ -107,27 +107,27 @@ export default function DayPageClient() {
           <div className="w-[74px]" />
         </div>
 
-        <div className="mt-1 text-center text-sm text-white/70">음력(참고): {lunarLabelFromSolarYmd(dateStr)}</div>
+        <div className="mt-1 text-center text-sm text-[#e8eaed]/70">음력(참고): {lunarLabelFromSolarYmd(dateStr)}</div>
 
         <div className="mt-3 flex justify-end gap-2">
-          <button onClick={openNewEntry} className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black">
+          <button onClick={openNewEntry} className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed]">
             + 기록
           </button>
-          <button onClick={openNewEvent} className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black">
+          <button onClick={openNewEvent} className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed]">
             + 약속/기념일
           </button>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
-          {errMsg && <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
+          {errMsg && <div className="rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
           {!errMsg && loading && (
-            <div className="rounded-xl bg-black/5 px-3 py-2 text-sm text-black/60">불러오는 중...</div>
+            <div className="rounded-xl bg-white/5 px-3 py-2 text-sm text-[#9aa0a6]">불러오는 중...</div>
           )}
 
           <div className="mt-3">
             <div className="text-sm font-extrabold">약속/기념일</div>
             {events.length === 0 ? (
-              <div className="mt-2 text-sm text-black/60">없음</div>
+              <div className="mt-2 text-sm text-[#9aa0a6]">없음</div>
             ) : (
               <div className="mt-2 space-y-2">
                 {events.map((ev) => {
@@ -137,7 +137,7 @@ export default function DayPageClient() {
                       <div className="flex items-center justify-between">
                         <div className="font-bold">{ev.title}</div>
                         <div className="flex items-center gap-2">
-                          <div className="text-xs text-black/60">
+                          <div className="text-xs text-[#9aa0a6]">
                             {ev.event_type === 'appointment' ? '약속' : '기념일'}
                             {ev.is_all_day ? ' · 하루종일' : ev.start_time ? ` · ${ev.start_time}` : ''}
                           </div>
@@ -151,7 +151,7 @@ export default function DayPageClient() {
                           <button
                             type="button"
                             onClick={() => onDeleteEvent(ev.id)}
-                            className="rounded-lg bg-red-600 px-2 py-1 text-[11px] font-bold text-white"
+                            className="rounded-lg bg-red-600 px-2 py-1 text-[11px] font-bold text-[#e8eaed]"
                           >
                             삭제
                           </button>
@@ -165,7 +165,7 @@ export default function DayPageClient() {
                           {cat.name}
                         </div>
                       )}
-                      {ev.content && <div className="mt-2 text-sm text-black/70">{ev.content}</div>}
+                      {ev.content && <div className="mt-2 text-sm text-[#e8eaed]/70">{ev.content}</div>}
                     </div>
                   );
                 })}
@@ -176,7 +176,7 @@ export default function DayPageClient() {
           <div className="mt-6">
             <div className="text-sm font-extrabold">기록</div>
             {entries.length === 0 ? (
-              <div className="mt-2 text-sm text-black/60">없음</div>
+              <div className="mt-2 text-sm text-[#9aa0a6]">없음</div>
             ) : (
               <div className="mt-2 space-y-2">
                 {entries.map((e) => {
@@ -206,13 +206,13 @@ export default function DayPageClient() {
                           <button
                             type="button"
                             onClick={() => onDeleteEntry(e.id)}
-                            className="rounded-lg bg-red-600 px-2 py-1 text-[11px] font-bold text-white"
+                            className="rounded-lg bg-red-600 px-2 py-1 text-[11px] font-bold text-[#e8eaed]"
                           >
                             삭제
                           </button>
                         </div>
                       </div>
-                      <div className="mt-2 text-sm text-black/80 whitespace-pre-wrap">{e.content}</div>
+                      <div className="mt-2 text-sm text-[#e8eaed]/80 whitespace-pre-wrap">{e.content}</div>
                     </div>
                   );
                 })}

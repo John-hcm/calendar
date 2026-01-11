@@ -55,35 +55,35 @@ export default function EntriesPage() {
     };
   }, [userId, start, end]);
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   const goNew = () => router.push(`/entries/new?date=${encodeURIComponent(ymd(new Date()))}`);
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href="/calendar" className="text-sm font-bold underline">
             ◀ 캘린더
           </Link>
           <div className="text-lg font-extrabold">기록</div>
-          <button onClick={goNew} className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black">
+          <button onClick={goNew} className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed]">
             + 새 기록
           </button>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
           <div className="text-sm font-bold">기간</div>
-          <div className="mt-1 text-sm text-black/70">
+          <div className="mt-1 text-sm text-[#e8eaed]/70">
             {start} ~ {end}
           </div>
 
-          {errMsg && <div className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
-          {!errMsg && loading && <div className="mt-3 rounded-xl bg-black/5 px-3 py-2 text-sm text-black/60">불러오는 중...</div>}
+          {errMsg && <div className="mt-3 rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
+          {!errMsg && loading && <div className="mt-3 rounded-xl bg-white/5 px-3 py-2 text-sm text-[#9aa0a6]">불러오는 중...</div>}
 
           <div className="mt-4 space-y-2">
             {entries.length === 0 ? (
-              <div className="text-sm text-black/60">없음</div>
+              <div className="text-sm text-[#9aa0a6]">없음</div>
             ) : (
               entries.map((e) => {
                 const cat = categoryById.get(e.category_id);
@@ -95,7 +95,7 @@ export default function EntriesPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="font-bold">{e.title ?? '제목 없음'}</div>
-                      <div className="text-xs text-black/60">{e.entry_date}</div>
+                      <div className="text-xs text-[#9aa0a6]">{e.entry_date}</div>
                     </div>
                     <div className="mt-2 flex items-center gap-2">
                       {cat && (
@@ -106,7 +106,7 @@ export default function EntriesPage() {
                           {cat.name}
                         </span>
                       )}
-                      <span className="text-sm text-black/70 truncate">{e.content}</span>
+                      <span className="text-sm text-[#e8eaed]/70 truncate">{e.content}</span>
                     </div>
                   </Link>
                 );

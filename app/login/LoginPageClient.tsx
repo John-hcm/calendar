@@ -61,8 +61,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black/90 px-4 py-10 text-white">
-      <div className="mx-auto w-full max-w-[420px] rounded-3xl bg-white p-6 text-black">
+    <div className="min-h-screen bg-[#202124] px-4 py-10 text-[#e8eaed]">
+      <div className="mx-auto w-full max-w-[420px] rounded-3xl bg-[#202124] border border-[#3c4043] p-6 text-[#e8eaed]">
         <div className="flex items-center justify-between">
           <div className="text-xl font-extrabold">
             {mode === 'login' ? '로그인' : '회원가입'}
@@ -95,7 +95,7 @@ export default function LoginPage() {
             <button
               onClick={onLogin}
               disabled={loading}
-              className="w-full rounded-xl bg-black py-2 font-bold text-white disabled:opacity-50"
+              className="w-full rounded-xl bg-black py-2 font-bold text-[#e8eaed] disabled:opacity-50"
             >
               로그인
             </button>
@@ -103,7 +103,7 @@ export default function LoginPage() {
             <button
               onClick={onSignup}
               disabled={loading}
-              className="w-full rounded-xl bg-black py-2 font-bold text-white disabled:opacity-50"
+              className="w-full rounded-xl bg-black py-2 font-bold text-[#e8eaed] disabled:opacity-50"
             >
               회원가입
             </button>
@@ -118,10 +118,10 @@ export default function LoginPage() {
               {mode === 'login' ? '회원가입으로' : '로그인으로'}
             </button>
 
-            <span className="text-black/60">다음 이동: {next}</span>
+            <span className="text-[#9aa0a6]">다음 이동: {next}</span>
           </div>
 
-          {msg && <div className="rounded-xl bg-black/5 px-3 py-2 text-sm">{msg}</div>}
+          {msg && <div className="rounded-xl bg-white/5 px-3 py-2 text-sm">{msg}</div>}
         </div>
       </div>
     </div>

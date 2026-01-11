@@ -93,10 +93,10 @@ export default function TasksEditPageClient() {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   return (
-    <div className="min-h-screen bg-black/90 px-3 py-5 text-white">
+    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
       <div className="mx-auto w-full max-w-[900px]">
         <div className="flex items-center justify-between">
           <Link href="/tasks" className="text-sm font-bold underline">
@@ -107,31 +107,31 @@ export default function TasksEditPageClient() {
             <button
               onClick={remove}
               disabled={saving}
-              className="rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              className="rounded-xl bg-[#202124] border border-[#3c4043]/10 px-4 py-2 text-sm font-semibold text-[#e8eaed] disabled:opacity-60"
             >
               삭제
             </button>
             <button
               onClick={save}
               disabled={saving}
-              className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black disabled:opacity-60"
+              className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed] disabled:opacity-60"
             >
               저장
             </button>
           </div>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-4 text-black">
-          {errMsg && <div className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{errMsg}</div>}
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
+          {errMsg && <div className="rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
 
-          {!errMsg && !task && <div className="rounded-xl bg-black/5 px-3 py-2 text-sm text-black/60">불러오는 중...</div>}
+          {!errMsg && !task && <div className="rounded-xl bg-white/5 px-3 py-2 text-sm text-[#9aa0a6]">불러오는 중...</div>}
 
           <div className="mt-3 grid gap-3">
             <label className="grid gap-1">
               <div className="text-sm font-bold">완료</div>
               <div className="flex items-center gap-2">
                 <input type="checkbox" checked={isDone} onChange={(e) => setIsDone(e.target.checked)} />
-                <span className="text-sm text-black/70">완료 처리</span>
+                <span className="text-sm text-[#e8eaed]/70">완료 처리</span>
               </div>
             </label>
 

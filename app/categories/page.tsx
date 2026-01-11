@@ -60,7 +60,7 @@ export default function CategoriesPage() {
     };
   }, [userId]);
 
-  if (authLoading) return <div className="min-h-screen bg-black/90" />;
+  if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   const onCreate = async () => {
     if (!userId) return;
@@ -143,21 +143,21 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black/90">
+    <div className="min-h-screen bg-[#202124]">
       <div className="mx-auto max-w-3xl px-4 py-6">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm text-white/70 hover:text-white">
+          <Link href="/" className="text-sm text-[#e8eaed]/70 hover:text-[#e8eaed]">
             ← 홈
           </Link>
-          <div className="text-sm text-white/70">카테고리</div>
+          <div className="text-sm text-[#e8eaed]/70">카테고리</div>
         </div>
 
-        <div className="mt-4 rounded-3xl bg-white p-5 shadow-sm">
+        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-5 shadow-sm text-[#e8eaed]">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
             <div className="flex-1">
-              <div className="text-xs text-black/60">이름</div>
+              <div className="text-xs text-[#9aa0a6]">이름</div>
               <input
-                className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10"
+                className="mt-1 w-full rounded-xl border border-[#3c4043] bg-[#1f1f1f] px-3 py-2 text-sm text-[#e8eaed] placeholder:text-[#9aa0a6]/70 outline-none focus:ring-2 focus:ring-white/10"
                 placeholder="예) 운동, 공부, 독서"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -165,9 +165,9 @@ export default function CategoriesPage() {
             </div>
 
             <div className="w-full sm:w-40">
-              <div className="text-xs text-black/60">배경</div>
+              <div className="text-xs text-[#9aa0a6]">배경</div>
               <input
-                className="mt-1 h-10 w-full rounded-xl border px-2 py-1"
+                className="mt-1 h-10 w-full rounded-xl border border-[#3c4043] bg-transparent px-2 py-1"
                 type="color"
                 value={bg}
                 onChange={(e) => setBg(e.target.value)}
@@ -176,9 +176,9 @@ export default function CategoriesPage() {
             </div>
 
             <div className="w-full sm:w-40">
-              <div className="text-xs text-black/60">텍스트</div>
+              <div className="text-xs text-[#9aa0a6]">텍스트</div>
               <input
-                className="mt-1 h-10 w-full rounded-xl border px-2 py-1"
+                className="mt-1 h-10 w-full rounded-xl border border-[#3c4043] bg-transparent px-2 py-1"
                 type="color"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -189,34 +189,34 @@ export default function CategoriesPage() {
             <button
               onClick={onCreate}
               disabled={loading || !name.trim()}
-              className="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+              className="rounded-xl bg-black px-4 py-2 text-sm font-medium text-[#e8eaed] disabled:opacity-40"
             >
               {loading ? '추가 중...' : '추가'}
             </button>
           </div>
 
-          {errMsg && <div className="mt-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{errMsg}</div>}
+          {errMsg && <div className="mt-3 rounded-xl bg-[#3c4043] p-3 text-sm text-[#f28b82]">{errMsg}</div>}
 
           <div className="mt-5">
-            <div className="text-xs font-medium text-black/60">목록</div>
+            <div className="text-xs font-medium text-[#9aa0a6]">목록</div>
 
             <div className="mt-2 space-y-2">
               {sorted.map((c) => {
                 const isEditing = edit?.id === c.id;
                 return (
-                  <div key={c.id} className="rounded-2xl border p-4">
+                  <div key={c.id} className="rounded-2xl border border-[#3c4043] bg-[#1f1f1f] p-4 text-[#e8eaed]">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-3">
                           <div
-                            className="h-7 w-7 rounded-lg border"
+                            className="h-7 w-7 rounded-lg border border-[#3c4043]"
                             style={{ backgroundColor: isEditing ? edit.color_bg : c.color_bg }}
                           />
                           <div className="min-w-0">
                             <div className="truncate text-sm font-semibold">
                               {isEditing ? edit.name : c.name}
                             </div>
-                            <div className="text-xs text-black/50">
+                            <div className="text-xs text-[#e8eaed]/50">
                               순서: {isEditing ? edit.sort_order : c.sort_order}
                             </div>
                           </div>
@@ -228,14 +228,14 @@ export default function CategoriesPage() {
                           <>
                             <button
                               onClick={() => startEdit(c)}
-                              className="rounded-xl border px-3 py-2 text-sm hover:bg-black/5"
+                              className="rounded-xl border border-[#3c4043] px-3 py-2 text-sm text-[#e8eaed] hover:bg-white/5"
                             >
                               수정
                             </button>
                             <button
                               onClick={() => onDelete(c)}
                               disabled={deletingId === c.id}
-                              className="rounded-xl border px-3 py-2 text-sm text-red-600 hover:bg-red-50 disabled:opacity-40"
+                              className="rounded-xl border border-[#3c4043] px-3 py-2 text-sm text-[#f28b82] hover:bg-[#3c4043] disabled:opacity-40"
                             >
                               {deletingId === c.id ? '삭제 중...' : '삭제'}
                             </button>
@@ -245,13 +245,13 @@ export default function CategoriesPage() {
                             <button
                               onClick={onSave}
                               disabled={savingId === c.id || !edit.name.trim()}
-                              className="rounded-xl bg-black px-3 py-2 text-sm font-medium text-white disabled:opacity-40"
+                              className="rounded-xl bg-black px-3 py-2 text-sm font-medium text-[#e8eaed] disabled:opacity-40"
                             >
                               {savingId === c.id ? '저장 중...' : '저장'}
                             </button>
                             <button
                               onClick={cancelEdit}
-                              className="rounded-xl border px-3 py-2 text-sm hover:bg-black/5"
+                              className="rounded-xl border border-[#3c4043] px-3 py-2 text-sm text-[#e8eaed] hover:bg-white/5"
                             >
                               취소
                             </button>
@@ -263,18 +263,18 @@ export default function CategoriesPage() {
                     {isEditing && (
                       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-4">
                         <div className="sm:col-span-2">
-                          <div className="text-xs text-black/60">이름</div>
+                          <div className="text-xs text-[#9aa0a6]">이름</div>
                           <input
-                            className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10"
+                            className="mt-1 w-full rounded-xl border border-[#3c4043] bg-[#1f1f1f] px-3 py-2 text-sm text-[#e8eaed] placeholder:text-[#9aa0a6]/70 outline-none focus:ring-2 focus:ring-white/10"
                             value={edit.name}
                             onChange={(e) => setEdit({ ...edit, name: e.target.value })}
                           />
                         </div>
 
                         <div>
-                          <div className="text-xs text-black/60">배경</div>
+                          <div className="text-xs text-[#9aa0a6]">배경</div>
                           <input
-                            className="mt-1 h-10 w-full rounded-xl border px-2 py-1"
+                            className="mt-1 h-10 w-full rounded-xl border border-[#3c4043] bg-transparent px-2 py-1"
                             type="color"
                             value={edit.color_bg}
                             onChange={(e) => setEdit({ ...edit, color_bg: e.target.value })}
@@ -283,9 +283,9 @@ export default function CategoriesPage() {
                         </div>
 
                         <div>
-                          <div className="text-xs text-black/60">텍스트</div>
+                          <div className="text-xs text-[#9aa0a6]">텍스트</div>
                           <input
-                            className="mt-1 h-10 w-full rounded-xl border px-2 py-1"
+                            className="mt-1 h-10 w-full rounded-xl border border-[#3c4043] bg-transparent px-2 py-1"
                             type="color"
                             value={edit.color_text}
                             onChange={(e) => setEdit({ ...edit, color_text: e.target.value })}
@@ -294,9 +294,9 @@ export default function CategoriesPage() {
                         </div>
 
                         <div className="sm:col-span-4">
-                          <div className="text-xs text-black/60">정렬 순서(숫자)</div>
+                          <div className="text-xs text-[#9aa0a6]">정렬 순서(숫자)</div>
                           <input
-                            className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10"
+                            className="mt-1 w-full rounded-xl border border-[#3c4043] bg-[#1f1f1f] px-3 py-2 text-sm text-[#e8eaed] placeholder:text-[#9aa0a6]/70 outline-none focus:ring-2 focus:ring-white/10"
                             type="number"
                             value={edit.sort_order}
                             onChange={(e) => setEdit({ ...edit, sort_order: Number(e.target.value) })}
@@ -309,14 +309,14 @@ export default function CategoriesPage() {
               })}
 
               {sorted.length === 0 && (
-                <div className="rounded-2xl border p-4 text-sm text-black/60">아직 카테고리가 없습니다. 위에서 추가하세요.</div>
+                <div className="rounded-2xl border border-[#3c4043] bg-[#1f1f1f] p-4 text-sm text-[#9aa0a6]">아직 카테고리가 없습니다. 위에서 추가하세요.</div>
               )}
             </div>
           </div>
         </div>
 
-        <div className="mt-4 text-xs text-white/50">
-          삭제는 실제 삭제가 아니라 <span className="text-white/70">is_active=false</span>로 비활성 처리됩니다.
+        <div className="mt-4 text-xs text-[#e8eaed]/50">
+          삭제는 실제 삭제가 아니라 <span className="text-[#e8eaed]/70">is_active=false</span>로 비활성 처리됩니다.
         </div>
       </div>
     </div>

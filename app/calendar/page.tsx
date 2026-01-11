@@ -22,6 +22,7 @@ import {
   fetchTasksByRange,
 } from '@/lib/db';
 import { supabase } from '@/lib/supabaseClient';
+import SidebarDrawer from '@/components/SidebarDrawer';
 
 const DOW_KR = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -38,6 +39,7 @@ export default function CalendarPage() {
   const [year, setYear] = useState<number>(today.getFullYear());
   const [month0, setMonth0] = useState<number>(today.getMonth());
   const [selectedDate, setSelectedDate] = useState<Date>(today);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const { userId, loading: authLoading } = useRequireAuth('/calendar');
 
@@ -191,6 +193,7 @@ export default function CalendarPage() {
 
   return (
     <div className="min-h-screen bg-[#202124] text-[#e8eaed]">
+      <SidebarDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} onLogout={logout} />
       {/* Top bar (Google Calendar 스타일) */}
       <div className="sticky top-0 z-10 border-b border-[#3c4043] bg-[#202124]">
         <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-3 py-2">
@@ -199,6 +202,7 @@ export default function CalendarPage() {
               type="button"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10"
               aria-label="메뉴"
+              onClick={() => setDrawerOpen(true)}
             >
               {/* hamburger */}
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -365,19 +369,21 @@ export default function CalendarPage() {
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="leading-tight">
-                    <div className="text-sm font-extrabold">
-                      {isToday ? (
-                        <span className="inline-flex rounded-full bg-[#8ab4f8] px-2 py-[1px] text-[#202124]">
-                          {c.date.getDate()}
-                        </span>
-                      ) : (
-                        <span className={c.isCurrentMonth ? 'text-[#e8eaed]' : 'text-[#9aa0a6]'}>
-                          {c.date.getDate()}
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-[12px] font-semibold text-[#9aa0a6]">
-                      ({lunarShortFromSolarYmd(dayKey)})
+                    <div className="flex items-baseline gap-1">
+                      <div className="text-sm font-extrabold">
+                        {isToday ? (
+                          <span className="inline-flex rounded-full bg-[#8ab4f8] px-2 py-[1px] text-[#202124]">
+                            {c.date.getDate()}
+                          </span>
+                        ) : (
+                          <span className={c.isCurrentMonth ? 'text-[#e8eaed]' : 'text-[#9aa0a6]'}>
+                            {c.date.getDate()}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[12px] font-semibold text-[#9aa0a6]">
+                        ({lunarShortFromSolarYmd(dayKey)})
+                      </div>
                     </div>
                   </div>
 
