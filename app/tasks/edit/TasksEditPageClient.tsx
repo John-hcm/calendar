@@ -1,14 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRequireAuth } from '@/lib/useRequireAuth';
 import { TaskItem, deleteTask, fetchTasks, updateTask } from '@/lib/db';
+import { supabase } from '@/lib/supabaseClient';
+import SidebarDrawer from '@/components/SidebarDrawer';
 
 export default function TasksEditPageClient() {
   const router = useRouter();
   const sp = useSearchParams();
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const id = sp.get('id') ?? '';
   const { userId, loading: authLoading } = useRequireAuth(`/tasks/edit?id=${encodeURIComponent(id)}`);
@@ -20,6 +23,17 @@ export default function TasksEditPageClient() {
   const [isDone, setIsDone] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const [saving, setSaving] = useState(false);
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    router.replace('/login?next=%2Ftasks');
+    router.refresh();
+  };
+
+  const goBack = () => router.push('/tasks');
+
+  const INPUT =
+    'mt-1 w-full rounded-xl border border-[#3c4043] bg-[#202124] px-3 py-2 text-sm text-[#e8eaed] placeholder:text-[#9aa0a6] focus:outline-none focus:ring-2 focus:ring-white/20';
 
   useEffect(() => {
     if (!userId || !id) return;
@@ -96,32 +110,84 @@ export default function TasksEditPageClient() {
   if (authLoading) return <div className="min-h-screen bg-[#202124]" />;
 
   return (
-    <div className="min-h-screen bg-[#202124] px-3 py-5 text-[#e8eaed]">
-      <div className="mx-auto w-full max-w-[900px]">
-        <div className="flex items-center justify-between">
-          <Link href="/tasks" className="text-sm font-bold underline">
-            ◀ 테스크
-          </Link>
-          <div className="text-lg font-extrabold">테스크 수정</div>
+    <div className="min-h-screen bg-[#202124] text-[#e8eaed]">
+      <SidebarDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} onLogout={logout} />
+      {/* Top bar (Google Calendar 스타일) */}
+      <div className="sticky top-0 z-10 border-b border-[#3c4043] bg-[#202124]">
+        <div className="mx-auto flex w-full max-w-[900px] items-center justify-between px-3 py-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10"
+              aria-label="메뉴"
+              onClick={() => setDrawerOpen(true)}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+
+            <button type="button" onClick={goBack} className="min-w-0 rounded-lg px-2 py-1 text-left hover:bg-white/10">
+              <div className="truncate text-lg font-extrabold">테스크</div>
+              <div className="truncate text-[12px] text-[#9aa0a6]">테스크 수정</div>
+            </button>
+          </div>
+
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={remove}
               disabled={saving}
-              className="rounded-xl bg-[#202124] border border-[#3c4043]/10 px-4 py-2 text-sm font-semibold text-[#e8eaed] disabled:opacity-60"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10 disabled:opacity-50"
+              aria-label="삭제"
+              title="삭제"
             >
-              삭제
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M3 6h18M8 6V4h8v2m-7 4v8m6-8v8M6 6l1 16h10l1-16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
+
             <button
+              type="button"
               onClick={save}
               disabled={saving}
-              className="rounded-xl bg-[#202124] border border-[#3c4043] px-4 py-2 text-sm font-semibold text-[#e8eaed] disabled:opacity-60"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10 disabled:opacity-50"
+              aria-label="저장"
+              title="저장"
             >
-              저장
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6 9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={logout}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10"
+              aria-label="로그아웃"
+              title="로그아웃"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M10 16v1a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v1"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <path d="M14 12H3m0 0 3-3m-3 3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </button>
           </div>
         </div>
+      </div>
 
-        <div className="mt-4 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
+      <div className="mx-auto w-full max-w-[900px] px-3 py-5">
+        <div className="mt-1 rounded-3xl bg-[#202124] border border-[#3c4043] p-4 text-[#e8eaed]">
           {errMsg && <div className="rounded-xl bg-[#3c4043] px-3 py-2 text-sm text-[#f28b82]">{errMsg}</div>}
 
           {!errMsg && !task && <div className="rounded-xl bg-white/5 px-3 py-2 text-sm text-[#9aa0a6]">불러오는 중...</div>}
@@ -130,24 +196,24 @@ export default function TasksEditPageClient() {
             <label className="grid gap-1">
               <div className="text-sm font-bold">완료</div>
               <div className="flex items-center gap-2">
-                <input type="checkbox" checked={isDone} onChange={(e) => setIsDone(e.target.checked)} />
+                <input type="checkbox" checked={isDone} onChange={(e) => setIsDone(e.target.checked)} className="h-4 w-4 accent-white" />
                 <span className="text-sm text-[#e8eaed]/70">완료 처리</span>
               </div>
             </label>
 
             <label className="grid gap-1">
               <div className="text-sm font-bold">제목</div>
-              <input value={title} onChange={(e) => setTitle(e.target.value)} className="rounded-xl border px-3 py-2" />
+              <input value={title} onChange={(e) => setTitle(e.target.value)} className={INPUT} />
             </label>
 
             <label className="grid gap-1">
               <div className="text-sm font-bold">마감일</div>
-              <input value={dueDate} onChange={(e) => setDueDate(e.target.value)} type="date" className="rounded-xl border px-3 py-2" />
+              <input value={dueDate} onChange={(e) => setDueDate(e.target.value)} type="date" className={INPUT} />
             </label>
 
             <label className="grid gap-1">
               <div className="text-sm font-bold">메모</div>
-              <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="min-h-[140px] rounded-xl border px-3 py-2" />
+              <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className={[INPUT, 'min-h-[140px]'].join(' ')} />
             </label>
           </div>
         </div>
