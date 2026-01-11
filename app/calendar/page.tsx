@@ -157,6 +157,22 @@ export default function CalendarPage() {
     router.refresh();
   };
 
+  const shiftMonth = (delta: number) => {
+    const d = addMonths(new Date(year, month0, 1), delta);
+    setYear(d.getFullYear());
+    setMonth0(d.getMonth());
+  };
+
+  const goPrevMonth = () => shiftMonth(-1);
+  const goNextMonth = () => shiftMonth(1);
+
+  const goToday = () => {
+    const t = new Date();
+    setYear(t.getFullYear());
+    setMonth0(t.getMonth());
+    setSelectedDate(t);
+  };
+
   const openDayDetail = (d: Date) => {
     setSelectedDate(d);
     router.push(`/day?date=${encodeURIComponent(ymd(d))}`);
